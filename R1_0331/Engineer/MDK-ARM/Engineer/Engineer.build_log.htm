@@ -1,0 +1,83 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.43.1.0
+Copyright (C) 2025 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: yue lenovo, cqdx, LIC=JL28G-V1UDB-FW82N-YFM18-2JWC8-AA6FJ
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.43.0.0
+Toolchain Path:  D:\ducument\keil\ARM\armcomplier5\Bin
+C Compiler:      Armcc.exe V5.06 update 7 (build 960)
+Assembler:       Armasm.exe V5.06 update 7 (build 960)
+Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
+Library Manager: ArmAr.exe V5.06 update 7 (build 960)
+Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
+CPU DLL:         SARMCM3.DLL V5.43.0.0
+Dialog DLL:      DCM.DLL V1.17.5.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.3.1.0
+Dialog DLL:      TCM.DLL V1.56.6.0
+ 
+<h2>Project:</h2>
+E:\diankongdiankongdiankong\R1_2026\R1_0413\R1_0331\Engineer\MDK-ARM\Engineer.uvprojx
+Project File Date:  04/14/2026
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\ducument\keil\ARM\armcomplier5\Bin'
+Build target 'Engineer'
+compiling catch.c...
+..\APPLICATION\catch.h(4): warning:  #1295-D: Deprecated declaration catch_init - give arg types
+  void catch_init();
+..\APPLICATION\catch.h(5): warning:  #1295-D: Deprecated declaration catch_all - give arg types
+  void catch_all();
+..\APPLICATION\catch.h(7): warning:  #1-D: last line of file ends without a newline
+  #endif
+../MODULE/hsl_servo.h(58): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\APPLICATION\catch.c(72): warning:  #188-D: enumerated type mixed with another type
+                  .Improve           = PID_Trapezoid_Intergral | PID_Integral_Limit | PID_Derivative_On_Measurement | PID_DerivativeFilter | PID_ErrorHandle,
+..\APPLICATION\catch.c(83): warning:  #188-D: enumerated type mixed with another type
+  							.Improve       = PID_Trapezoid_Intergral | PID_Integral_Limit | PID_Derivative_On_Measurement,
+..\APPLICATION\catch.c(101): warning:  #188-D: enumerated type mixed with another type
+  					.close_loop_type       = CURRENT_LOOP | SPEED_LOOP | ANGLE_LOOP   ,
+..\APPLICATION\catch.c(121): warning:  #188-D: enumerated type mixed with another type
+              .Improve           = PID_Trapezoid_Intergral | PID_Integral_Limit | PID_Derivative_On_Measurement | PID_DerivativeFilter | PID_ErrorHandle,
+..\APPLICATION\catch.c(130): warning:  #188-D: enumerated type mixed with another type
+              .Improve       = PID_Trapezoid_Intergral | PID_Integral_Limit | PID_Derivative_On_Measurement,
+..\APPLICATION\catch.c(146): warning:  #188-D: enumerated type mixed with another type
+          .close_loop_type       = CURRENT_LOOP | SPEED_LOOP | ANGLE_LOOP,
+..\APPLICATION\catch.c(156): warning:  #177-D: function "LiftInit"  was declared but never referenced
+  static void LiftInit() {
+..\APPLICATION\catch.c: 11 warnings, 0 errors
+linking...
+Program Size: Code=55976 RO-data=2124 RW-data=1496 ZI-data=97256  
+FromELF: creating hex file...
+"Engineer\Engineer.axf" - 0 Error(s), 11 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                https://www.keil.com/pack/ARM.CMSIS.6.2.0.pack
+                ARM::CMSIS@6.2.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 6.1.1
+
+Package Vendor: Keil
+                https://www.keil.com/pack/Keil.STM32F4xx_DFP.3.1.1.pack
+                Keil::STM32F4xx_DFP@3.1.1
+                STMicroelectronics STM32F4 Series Device Support
+
+<h2>Collection of Component include folders:</h2>
+  ./RTE/_Engineer
+  D:/ducument/keil/pack/ARM/CMSIS/6.2.0/CMSIS/Core/Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE@6.1.1
+      Include file:  CMSIS/Core/Include/tz_context.h
+Build Time Elapsed:  00:00:03
+</pre>
+</body>
+</html>
