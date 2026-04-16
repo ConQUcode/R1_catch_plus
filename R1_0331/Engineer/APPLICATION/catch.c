@@ -244,129 +244,36 @@ WritePosEx2(3, 1100, 500, 20, 1500);
 
 
 void catch_all(){
-	
-	//���ջ�3508ת��֮��������Ҫ�ջ�ȥ
-//  IR_sensor_level=HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_11);
-//	LiftInit();
 
-////����������
-//if(is_init_2006&&is_init_3508){
-//	DJIMotorEnable(DJM3508);
-	
-	
-	
-
-	
-	
-	
-	
-////���ϲ����Ҳ��֣���צ�ӳ�ƽ
-//	  if((int16_t)rc_cmd ->rc.rocker_r1 > 10){
-//         DJIMotorSetRef (DJM3508,18000);
-//			
-//	          if(DJM3508->measure.total_angle>17500){
-//	            	//�����ֵ������֮����Ҫ���ģ���Ϊ��ʼ��״̬��ͬ
-//							DJIMotorEnable(DJM2006);
-//            	DJIMotorSetRef(DJM2006,8400);
-//	            feite_catch();
-//             }
-
-//    }
-
-
-
-//feite_catch();
-//	
-//	
-//	
-//	//ץȡ��
-static uint32_t catch_start_time = 0; 
+static uint32_t catch_start_time = 0;
 static uint8_t is_timing = 0; // 标志位：是否正在计时
 
-if ((int16_t)rc_cmd->rc.rocker_r1 < -500) {
-    // 只有第一次进入时记录时间
-    if (is_timing == 0) {
-        catch_start_time = HAL_GetTick();
-        is_timing = 1;
-        feite_catch(); // 动作开始
+const uint8_t rocker_pressed = ((int16_t)rc_cmd->rc.rocker_r1 < -500);
+    DJIMotorSetRef(DJM3508, 1000);
+    if (DJM3508->measure.total_angle > 900) {
+        HAL_GPIO_WritePin(GPIOE,GPIO_PIN_9,GPIO_PIN_SET);
+        DJIMotorSetRef(DJM2006, 9000);
     }
+if (rocker_pressed) {
 
-    // 判断时间是否超过 500ms
-    if (HAL_GetTick() - catch_start_time > 1500) {
-        DJIMotorSetRef(DJM3508, 10000);
+    // 2006 到位后开始计时并夹取
+    if (DJM2006->measure.total_angle > 8500) {
+        if (is_timing == 0) {
+            catch_start_time = HAL_GetTick();
+            is_timing = 1;
+            feite_catch(); // 动作开始
+        }
+
+        // 判断时间是否超过 1500ms
+        if ((uint32_t)(HAL_GetTick() - catch_start_time) > 1500) {
+            DJIMotorSetRef(DJM3508, 10000);
+        }
     }
 } else {
-    // 摇杆松开或不满足条件时，重置标志位，以便下次重新计时
+    // 摇杆松开时，重置标志位，以便下次重新计时
     is_timing = 0;
-    DJIMotorSetRef(DJM3508, 500); // 回到初始状态（根据需求决定）
-	  feite_open();
+    DJIMotorSetRef(DJM3508, 1000); // 回到初始状态（根据需求决定）
+    feite_open();
 }
-//            
-//            if (DJM3508->measure.total_angle > 19500) {
-//                DJIMotorSetRef(DJM2006, 8400);
-//                
-//                if (DJM2006->measure.total_angle > 8200) {
-//                    // �����ٶȻ�ȥײ��λ/����
-//                    DJIMotorOuterLoop(DJM3508, SPEED_LOOP);
-//                    DJIMotorSetRef(DJM3508, 2000);
-//                    
-//                    // --- �ؼ��жϣ�����������ֵ ---
-//                    if (abs(DJM3508->measure.real_current) > 5000&&DJM2006->measure.total_angle > 8200) {
-//											  // 2. ���Ĳ��裺����ǰλ����Ϊ0�����������ڵ�ǰλ��
-//                        DJIMotorReset(DJM3508);
-//											  
-//                        // 3. �л��ؽǶȻ�
-//                        DJIMotorOuterLoop(DJM3508, ANGLE_LOOP);
-//                        // 1. ֹͣ��������֮ǰ���ٶ�ָ��
-//                        DJIMotorStop(DJM3508);
-//                       DJIMotorEnable(DJM3508);
-//                        // 4. Ŀ��ֵ��Ϊ��ǰλ�ã���Ϊ��Reset����������0��
-//                        DJIMotorSetRef(DJM3508, 0); 
-//                        
-//                        is_homed = 1; // �������ɣ���ֹ��һ�������л��ٶȻ�
-//                    }
-//                }
-//            }
-//        } 
-//    }
-//} 
-////					if((int16_t)rc_cmd->rc.dial > 50){
-////			
-////			
-////			
-////			}
-////		
-////		
-////		
-////		
-
-
-////if ((int16_t)rc_cmd->rc.rocker_l_ > 500) {
-////	static uint8_t is_homing = 0; // �����־λ
-////static uint8_t home_done = 0; // ��ɱ�־λ
-////    if (!home_done) { // �����û�������
-////        if (!is_homing) {
-////            feite_catch();
-////            DJIMotorEnable(DJM3508);
-////            DJIMotorOuterLoop(DJM3508, SPEED_LOOP);
-////            DJIMotorSetRef(DJM3508, -3000);
-////            is_homing = 1;
-////        }
-
-////        // ������
-////        if (abs(DJM3508->measure.real_current) > 4200) {
-////            osDelay(20); // �ʵ���������ʱ��
-////            if (abs(DJM3508->measure.real_current) > 4200) {
-////                DJIMotorStop(DJM3508);
-////                DJIMotorReset(DJM3508); // ��һ���Ὣ��ǰλ����Ϊ 0
-////                DJIMotorOuterLoop(DJM3508, ANGLE_LOOP);
-////                DJIMotorSetRef(DJM3508, 0); 
-////                home_done = 1; // �����ɣ�����ҡ�˲������ٽ�����߼�
-////                is_homing = 0;
-////            }
-////        }
-////    }
-////}
-
 
 	}
